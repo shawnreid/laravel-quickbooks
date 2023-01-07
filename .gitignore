@@ -1,0 +1,8 @@
+/vendor
+/test-coverage
+.phpunit.result.cache
+pint.sh
+test.sh
+phpstan.sh
+pint.json
+TODO.md

@@ -1,0 +1,22 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+
+    paths:
+        - app/
+
+    # Level 9 is the highest level
+    level: 9
+
+    excludePaths:
+        - ./src/Http/Controllers/TestController.php
+
+    ignoreErrors:
+        - '#undefined property Illuminate\\Database\\Eloquent\\Model::\$quickbooksToken#'
+        - '#undefined method Illuminate\\Database\\Eloquent\\Model::quickbooksToken#'
+        - '#Call to an undefined method object::pluck\(\).#'
+        - '#Call to an undefined method object::findOrFail\(\).#'
+
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
