@@ -1,10 +1,10 @@
 <?php
 
-namespace Shawnreid\LaravelQuickbooks\Tests\Unit;
+namespace Shawnreid\LaravelQuickbooks\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Shawnreid\LaravelQuickbooks\QuickbooksToken;
-use Shawnreid\LaravelQuickbooks\Tests\TestCase;
+use Shawnreid\LaravelQuickbooks\Models\QuickbooksToken;
+use Shawnreid\LaravelQuickbooks\Models\TestUserModel;
 
 class TokenTest extends TestCase
 {
@@ -40,5 +40,12 @@ class TokenTest extends TestCase
         ]);
 
         $this->assertFalse($token->validRefreshToken);
+    }
+
+    public function test_parent_relationship_returns_valid_model(): void
+    {
+        $user = TestUserModel::factory()->hasQuickbooksToken()->create();
+
+        $this->assertNotNull($user->quickbooksToken->parent);
     }
 }

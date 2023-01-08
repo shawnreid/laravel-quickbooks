@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Shawnreid\LaravelQuickbooks;
 
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Shawnreid\LaravelQuickbooks\Models\QuickbooksToken;
 
 trait Quickbooks
 {

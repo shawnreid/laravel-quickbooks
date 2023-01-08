@@ -37,7 +37,7 @@ php artisan migrate
     QUICKBOOKS_API_URL=<Development|Production>
     QUICKBOOKS_DEBUG=<true|false>
     ```
-4. By default this package will attach to the ```User``` Model. If you wish to use another model this can be configured in ```configs/quickbooks.php```.
+4. By default this package will attach to the ```User``` Model. If you wish to use another model this can be configured in ```configs/laravel-quickbooks.php```.
    A trait will need to be included in the model you wish to use.
 
    Example:
@@ -49,7 +49,7 @@ php artisan migrate
       use Quickbooks;
    ```
 5. The token manager middleware by default is set to ```auth```. Depending on your needs you will likely want to change this.
-   This can be configured in ```configs/quickbooks.php```
+   This can be configured in ```configs/laravel-quickbooks.php```
 
 ## Connecting to Quickbooks
 

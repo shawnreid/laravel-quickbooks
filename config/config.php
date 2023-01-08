@@ -48,7 +48,7 @@ return [
 
         'middleware' => [
             // Added to the protected routes for the package
-            'authenticated' => 'guest',
+            'authenticated' => 'auth',
 
             // Added to all of the routes for the package
             'default'       => 'web',

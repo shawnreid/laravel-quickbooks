@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Shawnreid\LaravelQuickbooks\QuickbooksClient;
-use Shawnreid\LaravelQuickbooks\QuickbooksToken;
+use Shawnreid\LaravelQuickbooks\Models\QuickbooksToken;
 use Illuminate\Contracts\View\View;
 
 class TokenController extends Controller
@@ -63,7 +63,7 @@ class TokenController extends Controller
     {
         $token->parent->quickbooks();
 
-        return back();
+        return redirect(route('quickbooks.index'));
     }
 
     /**
@@ -76,7 +76,7 @@ class TokenController extends Controller
     {
         $token->delete();
 
-        return back();
+        return redirect(route('quickbooks.index'));
     }
 
     /**
@@ -88,6 +88,10 @@ class TokenController extends Controller
      */
     public function callback(Request $request, QuickbooksClient $quickbooks): RedirectResponse
     {
+        if (!$request->code || !$request->realmId) {
+            return redirect('login');
+        }
+
         $quickbooks->createToken($request);
 
         return redirect(route('quickbooks.index'));

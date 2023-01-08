@@ -40,12 +40,12 @@ class QuickbooksClient
             );
 
         $model = config('laravel-quickbooks.relation.model');
-        $model = (new $model())->findOrFail($request->session()->get('_quickbooksId'));
+        $model = (new $model())->findOrFail(session()->get('_quickbooksId'));
 
         $model->quickbooksToken()->delete();
         $model->quickbooksToken()->create($this->parseToken($token));
 
-        $request->session()->forget('_quickbooksId');
+        session()->forget('_quickbooksId');
     }
 
     /**
@@ -56,6 +56,10 @@ class QuickbooksClient
      */
     public function getDataService(Model $model): DataService
     {
+        if (!$model->quickbooksToken) {
+            throw new \Error('Unable to configure QuickBooks Data Service. No token found.');
+        }
+
         $dataService = $this->confgiureDataService([
             'accessTokenKey'  => $model->quickbooksToken->access_token,
             'refreshTokenKey' => $model->quickbooksToken->refresh_token,

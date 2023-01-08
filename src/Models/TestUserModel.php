@@ -1,11 +1,13 @@
 <?php
 
-namespace Shawnreid\LaravelQuickbooks;
+namespace Shawnreid\LaravelQuickbooks\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Shawnreid\LaravelQuickbooks\Factories\TestUserModelFactory;
+use Shawnreid\LaravelQuickbooks\Quickbooks;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class TestUserModel extends Model
+class TestUserModel extends Authenticatable
 {
     use HasFactory;
     use Quickbooks;

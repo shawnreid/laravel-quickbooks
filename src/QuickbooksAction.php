@@ -60,9 +60,7 @@ class QuickbooksAction
      */
     public function create(array $body): IPPIntuitEntity
     {
-        if (empty($this->facade)) {
-            throw new \Error('No entity type specified.');
-        }
+        $this->verifyEntityTypeSpecified();
 
         return $this->dataService->Add(
             $this->facade::create($body)
@@ -78,9 +76,7 @@ class QuickbooksAction
      */
     public function update(int $id, array $body): IPPIntuitEntity
     {
-        if (empty($this->facade)) {
-            throw new \Error('No entity type specified.');
-        }
+        $this->verifyEntityTypeSpecified();
 
         return $this->dataService->Add(
             $this->facade::update($this->find($id), $body)
@@ -95,9 +91,7 @@ class QuickbooksAction
      */
     public function delete(int $id): mixed
     {
-        if (empty($this->facade)) {
-            throw new \Error('No entity type specified.');
-        }
+        $this->verifyEntityTypeSpecified();
 
         return $this->dataService->Delete($this->find($id));
     }
@@ -110,11 +104,21 @@ class QuickbooksAction
      */
     public function find(int $id)
     {
+        $this->verifyEntityTypeSpecified();
+
+        return $this->dataService->findById($this->getClassName(), $id);
+    }
+
+    /**
+     * Throw error if entity type not specified
+     *
+     * @return void
+     */
+    private function verifyEntityTypeSpecified(): void
+    {
         if (empty($this->facade)) {
             throw new \Error('No entity type specified.');
         }
-
-        return $this->dataService->findById($this->getClassName(), $id);
     }
 
     /**
@@ -122,7 +126,7 @@ class QuickbooksAction
      *
      * @return string
      */
-    private function getClassName(): string
+    public function getClassName(): string
     {
         return substr((string) strrchr($this->facade, '\\'), 1);
     }

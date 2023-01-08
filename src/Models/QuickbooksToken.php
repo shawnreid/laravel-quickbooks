@@ -1,11 +1,12 @@
 <?php
 
-namespace Shawnreid\LaravelQuickbooks;
+namespace Shawnreid\LaravelQuickbooks\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Carbon\Carbon;
+use Shawnreid\LaravelQuickbooks\Factories\QuickbooksTokenFactory;
 
 /**
  * @property string $access_token_expires_at

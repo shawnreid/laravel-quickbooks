@@ -1,8 +1,9 @@
 <?php
 
-namespace Shawnreid\LaravelQuickbooks;
+namespace Shawnreid\LaravelQuickbooks\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Shawnreid\LaravelQuickbooks\Models\TestUserModel;
 
 class TestUserModelFactory extends Factory
 {
