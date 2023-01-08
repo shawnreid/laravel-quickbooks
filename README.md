@@ -141,11 +141,24 @@ $user->quickbooks()->customer();
 $user->quickbooks()->estimate();
 $user->quickbooks()->invoice();
 $user->quickbooks()->item();
-#$user->quickbooks()->journalEntry();
-#$user->quickbooks()->payment();
-#$user->quickbooks()->timeActivity();
+$user->quickbooks()->journalEntry();
+$user->quickbooks()->payment();
+$user->quickbooks()->timeActivity();
 $user->quickbooks()->vendor();
-#$user->quickbooks()->vendorCredit();
+$user->quickbooks()->vendorCredit();
+$user->quickbooks()->companyCurrency();
+$user->quickbooks()->creditMemo();
+$user->quickbooks()->department();
+$user->quickbooks()->deposit();
+$user->quickbooks()->employee();
+$user->quickbooks()->purchase();
+$user->quickbooks()->purchaseOrder();
+$user->quickbooks()->refundReceipt();
+$user->quickbooks()->salesReceipt();
+$user->quickbooks()->taxAgency();
+$user->quickbooks()->taxRate();
+$user->quickbooks()->taxService();
+$user->quickbooks()->transfer();
 ```
 
 ### Supported CRUD Operations
