@@ -69,54 +69,82 @@ This package provides syntatic sugar to wrap QuickBooks PHP SDK. Please see [Qui
 ```php
 $user = User::find(1);
 
-// create an invoice
-$user->quickbooks()
-     ->invoice()
-     ->create(
+$user
+
+    // resolve data service
+    ->quickbooks()
+
+    // resolve invoice entity
+    ->invoice()
+
+    // create invoice
+    ->create(
          body: [...]
      )
 
-// update an existing customer
-$user->quickbooks()
-     ->customer()
-     ->update(
-         id: <id>
+$user
+
+    // resolve data service
+    ->quickbooks()
+
+    // resolve customer entity
+    ->customer()
+
+    // update customer
+    ->update(
+         id: 'id'
          body: [...]
      )
 
-// delete a bill
-$user->quickbooks()
-     ->bill()
-     ->delete(
-         id: <id>
-     )
+$user
 
-// find an account
-$user->quickbooks()
+    // resolve data service
+    ->quickbooks()
+
+    // resolve bill entity
+    ->bill()
+
+    // delete bill
+    ->delete(
+         id: 'id'
+    )
+
+$user
+
+    // resolve data service
+    ->quickbooks()
+
+    // resolve vendor entity
      ->vendor()
+
+     // find vendor
      ->find(
-         id: <id>
+         id: 'id'
      )
 
-// Custom SQL query
-// https://developer.intuit.com/app/developer/qbo/docs/learn/explore-the-quickbooks-online-api/data-queries
-$user->quickbooks()
-     ->query('SELECT * FROM Invoice')
+$user
+
+    // resolve data service
+    ->quickbooks()
+
+    // Custom SQL query
+    // https://developer.intuit.com/app/developer/qbo/docs/learn/explore-the-quickbooks-online-api/data-queries
+    ->query('SELECT * FROM Invoice')
 ```
 
 ### Supported Entities
 ```php
-#$user->quickbooks()->account();
-#$user->quickbooks()->bill();
-#$user->quickbooks()->billPayment();
-#$user->quickbooks()->customer();
-#$user->quickbooks()->estimate();
-#$user->quickbooks()->invoice();
-#$user->quickbooks()->item();
+$user->quickbooks()->account();
+$user->quickbooks()->bill();
+$user->quickbooks()->billPayment();
+$user->quickbooks()->customer();
+$user->quickbooks()->estimate();
+$user->quickbooks()->invoice();
+$user->quickbooks()->item();
 #$user->quickbooks()->journalEntry();
 #$user->quickbooks()->payment();
 #$user->quickbooks()->timeActivity();
-#$user->quickbooks()->vendor();
+$user->quickbooks()->vendor();
 #$user->quickbooks()->vendorCredit();
 ```
 
@@ -127,8 +155,6 @@ $user->quickbooks()->invoice()->update('id', [...]);
 $user->quickbooks()->invoice()->delete('id');
 $user->quickbooks()->invoice()->find('id');
 ```
-
-
 
 ### Testing
 
@@ -156,7 +182,3 @@ If you discover any security related issues, please email shawnreid@gmail.com in
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
-## Laravel Package Boilerplate
-
-This package was generated using the [Laravel Package Boilerplate](https://laravelpackageboilerplate.com).

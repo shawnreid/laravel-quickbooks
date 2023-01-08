@@ -3,13 +3,38 @@
 namespace Shawnreid\LaravelQuickbooks\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Mockery;
-use Mockery\MockInterface;
 use QuickBooksOnline\API\Data\IPPIntuitEntity;
 use QuickBooksOnline\API\Data\IPPInvoice;
 use QuickBooksOnline\API\DataService\DataService;
 use Shawnreid\LaravelQuickbooks\QuickbooksAction;
 use Shawnreid\LaravelQuickbooks\QuickbooksClient;
+use QuickBooksOnline\API\Facades\Account;
+use QuickBooksOnline\API\Facades\Bill;
+use QuickBooksOnline\API\Facades\Customer;
+use QuickBooksOnline\API\Facades\Invoice;
+use QuickBooksOnline\API\Facades\Item;
+use QuickBooksOnline\API\Facades\Vendor;
+use Mockery\MockInterface;
+use Mockery;
+use QuickBooksOnline\API\Facades\BillPayment;
+use QuickBooksOnline\API\Facades\CompanyCurrency;
+use QuickBooksOnline\API\Facades\CreditMemo;
+use QuickBooksOnline\API\Facades\Department;
+use QuickBooksOnline\API\Facades\Deposit;
+use QuickBooksOnline\API\Facades\Employee;
+use QuickBooksOnline\API\Facades\Estimate;
+use QuickBooksOnline\API\Facades\JournalEntry;
+use QuickBooksOnline\API\Facades\Payment;
+use QuickBooksOnline\API\Facades\Purchase;
+use QuickBooksOnline\API\Facades\PurchaseOrder;
+use QuickBooksOnline\API\Facades\RefundReceipt;
+use QuickBooksOnline\API\Facades\SalesReceipt;
+use QuickBooksOnline\API\Facades\TaxAgency;
+use QuickBooksOnline\API\Facades\TaxRate;
+use QuickBooksOnline\API\Facades\TaxService;
+use QuickBooksOnline\API\Facades\TimeActivity;
+use QuickBooksOnline\API\Facades\Transfer;
+use QuickBooksOnline\API\Facades\VendorCredit;
 
 class ActionTest extends TestCase
 {
@@ -56,44 +81,66 @@ class ActionTest extends TestCase
         ];
     }
 
-    public function test_invoice_sets_facade_property(): void
+    public function test_entity_is_set_to_correct_sdk_facade(): void
     {
-       $this->action->invoice();
+        $entities = [
+            'invoice'         => Invoice::class,
+            'customer'        => Customer::class,
+            'vendor'          => Vendor::class,
+            'bill'            => Bill::class,
+            'billPayment'     => BillPayment::class,
+            'account'         => Account::class,
+            'item'            => Item::class,
+            'estimate'        => Estimate::class,
+            'payment'         => Payment::class,
+            'journalEntry'    => JournalEntry::class,
+            'timeActivity'    => TimeActivity::class,
+            'vendorCredit'    => VendorCredit::class,
+            'companyCurrency' => CompanyCurrency::class,
+            'creditMemo'      => CreditMemo::class,
+            'department'      => Department::class,
+            'deposit'         => Deposit::class,
+            'employee'        => Employee::class,
+            'purchase'        => Purchase::class,
+            'purchaseOrder'   => PurchaseOrder::class,
+            'refundReceipt'   => RefundReceipt::class,
+            'salesReceipt'    => SalesReceipt::class,
+            'taxAgency'       => TaxAgency::class,
+            'taxRate'         => TaxRate::class,
+            'taxService'      => TaxService::class,
+            'transfer'        => Transfer::class
+        ];
 
-       $this->assertEquals('Invoice', $this->action->getClassName());
-    }
-
-    public function test_customer_sets_facade_property(): void
-    {
-       $this->action->customer();
-
-       $this->assertEquals('Customer', $this->action->getClassName());
+        foreach ($entities as $entity => $class) {
+            $this->action->{$entity}();
+            $this->assertEquals($class, $this->action->getEntity());
+        }
     }
 
     public function test_create_will_throw_error_if_entity_not_specified(): void
     {
-        $this->expectError(Error::class);
+        $this->expectException(\Exception::class);
 
         $this->action->create([]);
     }
 
     public function test_update_will_throw_error_if_entity_not_specified(): void
     {
-        $this->expectError(Error::class);
+        $this->expectException(\Exception::class);
 
         $this->action->update(1, []);
     }
 
     public function test_delete_will_throw_error_if_entity_not_specified(): void
     {
-        $this->expectError(Error::class);
+        $this->expectException(\Exception::class);
 
         $this->action->delete(1);
     }
 
     public function test_find_will_throw_error_if_entity_not_specified(): void
     {
-        $this->expectError(Error::class);
+        $this->expectException(\Exception::class);
 
         $this->action->find(1);
     }

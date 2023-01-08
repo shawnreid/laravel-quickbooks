@@ -57,7 +57,7 @@ class QuickbooksClient
     public function getDataService(Model $model): DataService
     {
         if (!$model->quickbooksToken) {
-            throw new \Error('Unable to configure QuickBooks Data Service. No token found.');
+            throw new \Exception('Unable to configure QuickBooks Data Service. No token found.');
         }
 
         $dataService = $this->confgiureDataService([

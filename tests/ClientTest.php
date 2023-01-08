@@ -2,7 +2,6 @@
 
 namespace Shawnreid\LaravelQuickbooks\Tests;
 
-use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use QuickBooksOnline\API\Core\OAuth\OAuth2\OAuth2AccessToken;
@@ -94,7 +93,7 @@ class ClientTest extends TestCase
     {
         $user = $this->noUserToken;
 
-        $this->expectError(Error::class);
+        $this->expectException(\Exception::class);
 
         $this->client->getDataService($user);
     }
