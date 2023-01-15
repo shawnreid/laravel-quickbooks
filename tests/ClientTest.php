@@ -89,7 +89,7 @@ class ClientTest extends TestCase
         $this->assertNotNull($user->fresh()->quickbooksToken());
     }
 
-    public function test_exception_thrown_if_no_quickbooks_token_exists(): void
+    public function test_error_thrown_if_no_quickbooks_token_exists(): void
     {
         $user = $this->noUserToken;
 
