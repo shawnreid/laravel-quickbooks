@@ -43,3 +43,13 @@ jobs:
                   composer update --${{ matrix.stability }} --prefer-dist --no-interaction
             - name: Execute tests
               run: vendor/bin/phpunit
+    phpstan:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - uses: php-actions/composer@v6
+
+        - name: PHPStan Static Analysis
+          uses: php-actions/phpstan@v3
+          with:
+            path: src/

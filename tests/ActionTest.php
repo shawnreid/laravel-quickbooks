@@ -8,33 +8,8 @@ use QuickBooksOnline\API\Data\IPPInvoice;
 use QuickBooksOnline\API\DataService\DataService;
 use Shawnreid\LaravelQuickbooks\QuickbooksAction;
 use Shawnreid\LaravelQuickbooks\QuickbooksClient;
-use QuickBooksOnline\API\Facades\Account;
-use QuickBooksOnline\API\Facades\Bill;
-use QuickBooksOnline\API\Facades\Customer;
-use QuickBooksOnline\API\Facades\Invoice;
-use QuickBooksOnline\API\Facades\Item;
-use QuickBooksOnline\API\Facades\Vendor;
 use Mockery\MockInterface;
 use Mockery;
-use QuickBooksOnline\API\Facades\BillPayment;
-use QuickBooksOnline\API\Facades\CompanyCurrency;
-use QuickBooksOnline\API\Facades\CreditMemo;
-use QuickBooksOnline\API\Facades\Department;
-use QuickBooksOnline\API\Facades\Deposit;
-use QuickBooksOnline\API\Facades\Employee;
-use QuickBooksOnline\API\Facades\Estimate;
-use QuickBooksOnline\API\Facades\JournalEntry;
-use QuickBooksOnline\API\Facades\Payment;
-use QuickBooksOnline\API\Facades\Purchase;
-use QuickBooksOnline\API\Facades\PurchaseOrder;
-use QuickBooksOnline\API\Facades\RefundReceipt;
-use QuickBooksOnline\API\Facades\SalesReceipt;
-use QuickBooksOnline\API\Facades\TaxAgency;
-use QuickBooksOnline\API\Facades\TaxRate;
-use QuickBooksOnline\API\Facades\TaxService;
-use QuickBooksOnline\API\Facades\TimeActivity;
-use QuickBooksOnline\API\Facades\Transfer;
-use QuickBooksOnline\API\Facades\VendorCredit;
 
 class ActionTest extends TestCase
 {
@@ -79,42 +54,6 @@ class ActionTest extends TestCase
                   "Address" => "v@intuit.com"
             ]
         ];
-    }
-
-    public function test_entity_is_set_to_correct_sdk_facade(): void
-    {
-        $entities = [
-            'invoice'         => Invoice::class,
-            'customer'        => Customer::class,
-            'vendor'          => Vendor::class,
-            'bill'            => Bill::class,
-            'billPayment'     => BillPayment::class,
-            'account'         => Account::class,
-            'item'            => Item::class,
-            'estimate'        => Estimate::class,
-            'payment'         => Payment::class,
-            'journalEntry'    => JournalEntry::class,
-            'timeActivity'    => TimeActivity::class,
-            'vendorCredit'    => VendorCredit::class,
-            'companyCurrency' => CompanyCurrency::class,
-            'creditMemo'      => CreditMemo::class,
-            'department'      => Department::class,
-            'deposit'         => Deposit::class,
-            'employee'        => Employee::class,
-            'purchase'        => Purchase::class,
-            'purchaseOrder'   => PurchaseOrder::class,
-            'refundReceipt'   => RefundReceipt::class,
-            'salesReceipt'    => SalesReceipt::class,
-            'taxAgency'       => TaxAgency::class,
-            'taxRate'         => TaxRate::class,
-            'taxService'      => TaxService::class,
-            'transfer'        => Transfer::class
-        ];
-
-        foreach ($entities as $entity => $class) {
-            $this->action->{$entity}();
-            $this->assertEquals($class, $this->action->getEntity());
-        }
     }
 
     public function test_create_will_throw_error_if_entity_not_specified(): void
@@ -226,5 +165,12 @@ class ActionTest extends TestCase
         $result = $mock->invoice()->delete(1);
 
         $this->assertInstanceOf(IPPIntuitEntity::class, $result);
+    }
+
+    public function test_invalid_entity_throws_error(): void
+    {
+        $this->expectError(\Error::class);
+
+        $this->action->invoice_test();
     }
 }

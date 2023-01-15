@@ -6,66 +6,13 @@ namespace Shawnreid\LaravelQuickbooks;
 
 use QuickBooksOnline\API\Data\IPPIntuitEntity;
 use QuickBooksOnline\API\DataService\DataService;
-use QuickBooksOnline\API\Facades\Account;
-use QuickBooksOnline\API\Facades\Bill;
-use QuickBooksOnline\API\Facades\BillPayment;
-use QuickBooksOnline\API\Facades\CompanyCurrency;
-use QuickBooksOnline\API\Facades\CreditMemo;
-use QuickBooksOnline\API\Facades\Customer;
-use QuickBooksOnline\API\Facades\Department;
-use QuickBooksOnline\API\Facades\Deposit;
-use QuickBooksOnline\API\Facades\Employee;
-use QuickBooksOnline\API\Facades\Estimate;
-use QuickBooksOnline\API\Facades\Invoice;
-use QuickBooksOnline\API\Facades\Item;
-use QuickBooksOnline\API\Facades\JournalEntry;
-use QuickBooksOnline\API\Facades\Payment;
-use QuickBooksOnline\API\Facades\Purchase;
-use QuickBooksOnline\API\Facades\PurchaseOrder;
-use QuickBooksOnline\API\Facades\RefundReceipt;
-use QuickBooksOnline\API\Facades\SalesReceipt;
-use QuickBooksOnline\API\Facades\TaxAgency;
-use QuickBooksOnline\API\Facades\TaxRate;
-use QuickBooksOnline\API\Facades\TaxService;
-use QuickBooksOnline\API\Facades\TimeActivity;
-use QuickBooksOnline\API\Facades\Transfer;
-use QuickBooksOnline\API\Facades\Vendor;
-use QuickBooksOnline\API\Facades\VendorCredit;
 
 class QuickbooksAction
 {
-    private array $entities = [
-        'invoice'         => Invoice::class,
-        'customer'        => Customer::class,
-        'vendor'          => Vendor::class,
-        'bill'            => Bill::class,
-        'billpayment'     => BillPayment::class,
-        'account'         => Account::class,
-        'item'            => Item::class,
-        'estimate'        => Estimate::class,
-        'payment'         => Payment::class,
-        'journalentry'    => JournalEntry::class,
-        'timeactivity'    => TimeActivity::class,
-        'vendorcredit'    => VendorCredit::class,
-        'companycurrency' => CompanyCurrency::class,
-        'creditmemo'      => CreditMemo::class,
-        'department'      => Department::class,
-        'deposit'         => Deposit::class,
-        'employee'        => Employee::class,
-        'purchase'        => Purchase::class,
-        'purchaseorder'   => PurchaseOrder::class,
-        'refundreceipt'   => RefundReceipt::class,
-        'salesreceipt'    => SalesReceipt::class,
-        'taxagency'       => TaxAgency::class,
-        'taxrate'         => TaxRate::class,
-        'taxservice'      => TaxService::class,
-        'transfer'        => Transfer::class,
-    ];
-    private string $entity = '';
-
-    public function __construct(private DataService $dataService)
-    {
-    }
+    public function __construct(
+        private DataService $dataService,
+        private string $entity = ''
+    ) { }
 
     /**
      * Set entity type
@@ -76,14 +23,14 @@ class QuickbooksAction
      */
     public function __call(string $function, array $arguments): self
     {
-        $key = strtolower($function);
+        $class = '\\QuickBooksOnline\\API\\Facades\\' . ucfirst($function);
 
-        if (isset($this->entities[$key])) {
-            $this->entity = $this->entities[$key];
+        if (class_exists($class)) {
+            $this->entity = $class;
             return $this;
         }
 
-        throw new \Error(sprintf("Call to undefined method %s::%s", __CLASS__, $function));
+        throw new \Error(sprintf('Call to undefined method %s::%s', __CLASS__, $function));
     }
 
     /**
@@ -174,15 +121,5 @@ class QuickbooksAction
     public function getClassName(): string
     {
         return substr((string) strrchr($this->entity, '\\'), 1);
-    }
-
-    /**
-     * Return selected entity
-     *
-     * @return string
-     */
-    public function getEntity(): string
-    {
-        return $this->entity;
     }
 }
