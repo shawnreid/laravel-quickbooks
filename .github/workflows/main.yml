@@ -44,15 +44,15 @@ jobs:
                   composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
                   composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
-             - name: PHPUnit Tests
-                uses: php-actions/phpunit@v3
-                env:
-                  XDEBUG_MODE: coverage
-                with:
-                  bootstrap: vendor/autoload.php
-                  configuration: phpunit.xml
-                  php_extensions: xdebug
-                  args: tests --coverage-clover ./coverage.xml
+            - name: PHPUnit Tests
+              uses: php-actions/phpunit@v3
+              env:
+                XDEBUG_MODE: coverage
+              with:
+                bootstrap: vendor/autoload.php
+                configuration: phpunit.xml
+                php_extensions: xdebug
+                args: tests --coverage-clover ./coverage.xml
 
             - name: Upload to Codecov
               uses: codecov/codecov-action@v2
