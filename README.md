@@ -4,6 +4,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/shawnreid/laravel-quickbooks.svg?style=flat-square)](https://packagist.org/packages/shawnreid/laravel-quickbooks)
 ![GitHub Actions](https://github.com/shawnreid/laravel-quickbooks/actions/workflows/main.yml/badge.svg)
 ![PHP Stan](https://img.shields.io/badge/PHPStan-level%208-brightgreen.svg?style=flat)
+[![codecov](https://codecov.io/github/shawnreid/laravel-quickbooks-client/branch/master/graph/badge.svg?token=1XYG868AX9)](https://codecov.io/github/shawnreid/laravel-quickbooks-client)
 
 Laravel Quickbooks is a token manager and wrapper for the [QuickBooks PHP SDK](https://github.com/intuit/QuickBooks-V3-PHP-SDK).
 See [Quickbooks API Reference](https://developer.intuit.com/app/developer/qbo/docs/get-started) for more details on how to interact with the API.
