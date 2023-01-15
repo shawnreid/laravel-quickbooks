@@ -1,4 +1,4 @@
-# Very short description of the package
+# Quickbooks SDK Wrapper For Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/shawnreid/laravel-quickbooks.svg?style=flat-square)](https://packagist.org/packages/shawnreid/laravel-quickbooks)
 [![Total Downloads](https://img.shields.io/packagist/dt/shawnreid/laravel-quickbooks.svg?style=flat-square)](https://packagist.org/packages/shawnreid/laravel-quickbooks)
