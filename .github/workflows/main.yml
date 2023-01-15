@@ -38,23 +38,26 @@ jobs:
               run: |
                   echo "::add-matcher::${{ runner.tool_cache }}/php.json"
                   echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
             - name: Install dependencies
               run: |
                   composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
                   composer update --${{ matrix.stability }} --prefer-dist --no-interaction
-            - name: Execute tests
-              run: vendor/bin/phpunit
-              env:
-                XDEBUG_MODE: coverage
-              with:
-                bootstrap: vendor/autoload.php
-                configuration: phpunit.xml
-                php_extensions: xdebug
-                args: tests --coverage-clover ./coverage.xml
+
+             - name: PHPUnit Tests
+                uses: php-actions/phpunit@v3
+                env:
+                  XDEBUG_MODE: coverage
+                with:
+                  bootstrap: vendor/autoload.php
+                  configuration: phpunit.xml
+                  php_extensions: xdebug
+                  args: tests --coverage-clover ./coverage.xml
+
             - name: Upload to Codecov
               uses: codecov/codecov-action@v2
               with:
-                token: ${{ secrets.CODE_COV_TOKEN }}
+                token: ${{ secrets.CODECOV_TOKEN }}
                 files: ./coverage.xml
                 verbose: true
 
