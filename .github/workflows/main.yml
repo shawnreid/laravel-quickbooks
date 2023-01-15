@@ -9,6 +9,7 @@ on:
 jobs:
     test:
         runs-on: ${{ matrix.os }}
+
         strategy:
             fail-fast: true
             matrix:
@@ -43,8 +44,25 @@ jobs:
                   composer update --${{ matrix.stability }} --prefer-dist --no-interaction
             - name: Execute tests
               run: vendor/bin/phpunit
+              env:
+                XDEBUG_MODE: coverage
+              with:
+                bootstrap: vendor/autoload.php
+                configuration: phpunit.xml
+                php_extensions: xdebug
+                args: tests --coverage-clover ./coverage.xml
+            - name: Upload to Codecov
+              uses: codecov/codecov-action@v2
+              with:
+                token: ${{ secrets.CODE_COV_TOKEN }}
+                files: ./coverage.xml
+                verbose: true
+
     phpstan:
       runs-on: ubuntu-latest
+
+      name: PHPStan Static Analysis
+
       steps:
         - uses: actions/checkout@v3
         - uses: php-actions/composer@v6
