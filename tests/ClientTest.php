@@ -93,7 +93,7 @@ class ClientTest extends TestCase
     {
         $user = $this->noUserToken;
 
-        $this->expectException(\Exception::class);
+        $this->expectError(\Error::class);
 
         $this->client->getDataService($user);
     }

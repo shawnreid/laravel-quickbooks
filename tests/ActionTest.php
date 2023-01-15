@@ -119,28 +119,28 @@ class ActionTest extends TestCase
 
     public function test_create_will_throw_error_if_entity_not_specified(): void
     {
-        $this->expectException(\Exception::class);
+        $this->expectError(\Error::class);
 
         $this->action->create([]);
     }
 
     public function test_update_will_throw_error_if_entity_not_specified(): void
     {
-        $this->expectException(\Exception::class);
+        $this->expectError(\Error::class);
 
         $this->action->update(1, []);
     }
 
     public function test_delete_will_throw_error_if_entity_not_specified(): void
     {
-        $this->expectException(\Exception::class);
+        $this->expectError(\Error::class);
 
         $this->action->delete(1);
     }
 
     public function test_find_will_throw_error_if_entity_not_specified(): void
     {
-        $this->expectException(\Exception::class);
+        $this->expectError(\Error::class);
 
         $this->action->find(1);
     }
